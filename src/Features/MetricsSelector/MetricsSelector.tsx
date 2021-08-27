@@ -9,6 +9,7 @@ import {
 import LinearProgress from '@material-ui/core/LinearProgress';
 import { Typography } from '@material-ui/core';
 import Chip from '../../components/Chip';
+import MultiSelector from '../../components/MultiSelect';
 
 const client = new ApolloClient({
   uri: 'https://react.eogresources.com/graphql',
@@ -38,7 +39,7 @@ const MetricsSelector: FC = () => {
 
   return (
     <div>
-      {metrics.map(m => <span>{m}</span>)}
+      <MultiSelector options={metrics} />
     </div>
   );
 };
