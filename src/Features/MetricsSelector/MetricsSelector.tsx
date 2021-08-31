@@ -9,7 +9,8 @@ import {
 import LinearProgress from '@material-ui/core/LinearProgress';
 import { Typography } from '@material-ui/core';
 import Chip from '../../components/Chip';
-import MultiSelector from '../../components/MultiSelect';
+// import MultiSelector from '../../components/MultiSelect';
+import CheckboxGroup from '../../components/CheckboxGroup';
 import { setAvailable } from './metricsSlice';
 import { useAppDispatch } from '../../redux/hooks';
 
@@ -42,7 +43,7 @@ const MetricsSelector: FC = () => {
 
   return (
     <div>
-      <MultiSelector />
+      <CheckboxGroup />
     </div>
   );
 };
