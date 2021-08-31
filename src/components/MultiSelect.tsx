@@ -7,6 +7,8 @@ import {
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
+import { useAppSelector } from '../redux/hooks';
+
 type MultiSelectorProps = {
   options: string[];
 };
@@ -35,6 +37,9 @@ function MultiSelector(props: MultiSelectorProps) {
   const { options } = props;
   const [selected, setSelected] = useState<string[]>([]);
   const classes = useStyles();
+
+  const metrics = useAppSelector(state => state.metrics);
+  console.log({ metrics });
 
   const getOptionsToDisplay: () => string[] = () => options.reduce((acc, option) => {
     if (!selected.includes(option)) {
