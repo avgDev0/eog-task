@@ -1,15 +1,19 @@
 import React from 'react';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import Checkbox from '@material-ui/core/Checkbox';
+import {
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+  Checkbox,
+  Button,
+  Grid,
+} from '@material-ui/core';
 import { useAppSelector, useAppDispatch } from '../redux/hooks';
 import { setSelected } from '../Features/MetricsSelector/metricsSlice';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
-  root: {
+  list: {
     width: '100%',
     backgroundColor: theme.palette.background.paper,
   },
@@ -28,26 +32,38 @@ export default function CheckboxList() {
     ),
   );
 
+  // TODO: move the grid container def a level higer so we can play with widths
   return (
-    <List className={classes.root}>
-      {available.map((value) => {
-        const labelId = `checkbox-list-label-${value}`;
+    <Grid container xs={12} md={4}>
+      {(selected.length > 1) && (
+        <Grid item xs={12} justifyContent="center">
+          <Button variant='outlined' color='primary' onClick={() => dispatch(setSelected([]))}>
+            Clear selection
+          </Button>
+        </Grid>
+      )}
+      <Grid item xs={12}>
+        <List className={classes.list}>
+          {available.map((value) => {
+            const labelId = `checkbox-list-label-${value}`;
 
-        return (
-          <ListItem key={value} role={undefined} dense button onClick={handleToggle(value)}>
-            <ListItemIcon>
-              <Checkbox
-                edge="start"
-                checked={selected.indexOf(value) !== -1}
-                tabIndex={-1}
-                disableRipple
-                inputProps={{ 'aria-labelledby': labelId }}
-              />
-            </ListItemIcon>
-            <ListItemText id={labelId} primary={value} />
-          </ListItem>
-        );
-      })}
-    </List>
+            return (
+              <ListItem key={value} role={undefined} dense button onClick={handleToggle(value)}>
+                <ListItemIcon>
+                  <Checkbox
+                    edge="start"
+                    checked={selected.indexOf(value) !== -1}
+                    tabIndex={-1}
+                    disableRipple
+                    inputProps={{ 'aria-labelledby': labelId }}
+                  />
+                </ListItemIcon>
+                <ListItemText id={labelId} primary={value} />
+              </ListItem>
+            );
+          })}
+        </List>
+      </Grid>
+    </Grid>
   );
 }
