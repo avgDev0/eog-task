@@ -36,11 +36,7 @@ const MetricsSelector: FC = () => {
 
   const { getMetrics: metrics } = data;
 
-  return (
-    <div>
-      <CheckboxGroup options={metrics} />
-    </div>
-  );
+  return <CheckboxGroup options={metrics} />;
 };
 
 export default () => (

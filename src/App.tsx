@@ -5,9 +5,10 @@ import { Provider } from 'react-redux';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import store from './redux/store';
 import 'react-toastify/dist/ReactToastify.css';
-import Header from './components/Header';
+// import Header from './components/Header';
 import Wrapper from './components/Wrapper';
-import NowWhat from './components/NowWhat';
+// import NowWhat from './components/NowWhat';
+import MetricsSection from './components/MetricsSection';
 
 const theme = createTheme({
   palette: {
@@ -28,8 +29,7 @@ const App = () => (
     <Provider store={store}>
       <CssBaseline />
       <Wrapper>
-        <Header />
-        <NowWhat />
+        <MetricsSection />
         <ToastContainer />
       </Wrapper>
     </Provider>
