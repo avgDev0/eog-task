@@ -11,8 +11,6 @@ import { Typography } from '@material-ui/core';
 import Chip from '../../components/Chip';
 // import MultiSelector from '../../components/MultiSelect';
 import CheckboxGroup from '../../components/CheckboxGroup';
-import { setAvailable } from './metricsSlice';
-import { useAppDispatch } from '../../redux/hooks';
 
 const client = new ApolloClient({
   uri: 'https://react.eogresources.com/graphql',
@@ -30,8 +28,6 @@ type MetricsDataResponse = {
 };
 
 const MetricsSelector: FC = () => {
-  // TODO: Implement multiple select with the obtained data
-  const dispatch = useAppDispatch();
   const { loading, error, data } = useQuery<MetricsDataResponse>(query);
 
   if (loading) return <LinearProgress />;
@@ -39,11 +35,10 @@ const MetricsSelector: FC = () => {
   if (!data) return <Chip label="No metrics found" />;
 
   const { getMetrics: metrics } = data;
-  dispatch(setAvailable(metrics));
 
   return (
     <div>
-      <CheckboxGroup />
+      <CheckboxGroup options={metrics} />
     </div>
   );
 };

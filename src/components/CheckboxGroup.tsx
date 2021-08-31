@@ -12,6 +12,10 @@ import {
 import { useAppSelector, useAppDispatch } from '../redux/hooks';
 import { setSelected } from '../Features/MetricsSelector/metricsSlice';
 
+type CheckboxListProps = {
+  options: string[];
+};
+
 const useStyles = makeStyles((theme: Theme) => createStyles({
   list: {
     width: '100%',
@@ -19,9 +23,10 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   },
 }));
 
-export default function CheckboxList() {
+export default function CheckboxList(props: CheckboxListProps) {
   const classes = useStyles();
-  const { available, selected } = useAppSelector(state => state.metrics);
+  const { options } = props;
+  const { selected } = useAppSelector(state => state.metrics);
   const dispatch = useAppDispatch();
 
   const handleToggle = (option: string) => () => dispatch(
@@ -44,7 +49,7 @@ export default function CheckboxList() {
       )}
       <Grid item xs={12}>
         <List className={classes.list}>
-          {available.map((value) => {
+          {options.map((value) => {
             const labelId = `checkbox-list-label-${value}`;
 
             return (
