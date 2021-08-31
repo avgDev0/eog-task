@@ -42,7 +42,7 @@ const MetricsSelector: FC = () => {
 
   return (
     <div>
-      <MultiSelector options={metrics} />
+      <MultiSelector />
     </div>
   );
 };

@@ -17,15 +17,15 @@ export const metricsSlice = createSlice({
     setAvailable: (state, action: PayloadAction<string[]>) => {
       state.available = action.payload;
     },
-    addSelected: (state, action: PayloadAction<string>) => {
-      state.selected = [...state.selected, action.payload];
+    setSelected: (state, action: PayloadAction<string[]>) => {
+      state.selected = action.payload;
     },
-    removeSelected: (state, action: PayloadAction<string>) => {
-      state.selected = state.selected.filter((s) => s !== action.payload);
+    clearSelected: (state) => {
+      state.selected = [];
     },
   },
 });
 
-export const { setAvailable, addSelected, removeSelected } = metricsSlice.actions;
+export const { setAvailable, setSelected, clearSelected } = metricsSlice.actions;
 
 export default metricsSlice.reducer;
