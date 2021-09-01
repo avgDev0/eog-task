@@ -7,13 +7,14 @@ import DataCards from '../Features/DataCards/DataCards';
 const useStyles = makeStyles({
   sectionContainer: {
     height: '100%',
+    paddingTop: 5,
   },
 });
 
 export default function MetricsSection() {
   const classes = useStyles();
   return (
-    <Grid container className={classes.sectionContainer} xs={12}>
+    <Grid container className={classes.sectionContainer}>
       <Grid item xs={8}>
         <DataCards />
       </Grid>

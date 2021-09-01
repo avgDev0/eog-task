@@ -54,15 +54,15 @@ export default function CheckboxList(props: CheckboxListProps) {
   );
 
   return (
-    <Grid className={classes.metricsMenu} container xs={12}>
-      <Grid container xs={12}>
+    <Grid className={classes.metricsMenu} container>
+      <Grid container>
         <Grid className={classes.title} item xs={6}>
           <Typography variant="h6">
             Select metrics
           </Typography>
         </Grid>
         {(selected.length > 1) && (
-          <Grid item xs={4} md={6} alignItems="center">
+          <Grid item xs={4} md={6}>
             <Button className={classes.clear} variant='outlined' color='primary' onClick={() => dispatch(setSelected([]))}>
               Clear selection
             </Button>
