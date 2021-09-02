@@ -5,10 +5,7 @@ import { Typography } from '@material-ui/core';
 import Chip from '../../components/Chip';
 import CheckboxGroup from '../../components/CheckboxGroup';
 import { QUERY_GET_METRICS } from './queries';
-
-type MetricsDataResponse = {
-  getMetrics: string[];
-};
+import { MetricsDataResponse } from '../../Types/MetricsSelector';
 
 export default function MetricsSelector() {
   const {

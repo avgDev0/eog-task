@@ -11,21 +11,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { useAppDispatch } from '../redux/hooks';
 import { setMetricData, removeMetricData } from '../Features/MetricsSelector/metricsSlice';
 import { QUERY_GET_MEASUREMENTS } from '../Features/MetricsSelector/queries';
-
-interface WithDataProps {
-  value: string;
-  checked: boolean;
-}
-
-interface CheckboxItemProps extends WithDataProps {
-  onSelect: Function;
-}
-
-type Measurements = {
-  value: number;
-  unit: string;
-  at: number;
-};
+import { IWithDataProps, CheckboxItemProps, Measurements } from '../Types/CheckboxItem';
 
 const useStyles = makeStyles({
   listItem: {
@@ -76,7 +62,7 @@ function CheckboxItem(props: CheckboxItemProps) {
   );
 }
 
-export default function withData(props: WithDataProps) {
+export default function withData(props: IWithDataProps) {
   const { value, checked } = props;
   const dispatch = useAppDispatch();
 

@@ -1,25 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-
-type MetricValue = {
-  value: number;
-  at: number;
-};
-
-type MetricData = {
-  metricName: string;
-  values: MetricValue[];
-  unit: string;
-  latestEntry: MetricValue;
-};
-
-type NewEntry = {
-  metric: string;
-  value: MetricValue;
-};
-
-interface MetricsState {
-  data: MetricData[];
-}
+// eslint-disable-next-line object-curly-newline
+import { MetricValue, MetricData, NewEntry, MetricsState } from '../../Types/MetricsSelector';
 
 const initialState: MetricsState = {
   data: [],
