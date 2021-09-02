@@ -6,7 +6,10 @@ import {
   Typography,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import { useAppSelector } from '../../redux/hooks';
+import { useSubscription } from '@apollo/client';
+import { useAppDispatch } from '../../redux/hooks';
+import { SUBSCRIPTION_NEW_MEASUREMENTS } from '../MetricsSelector/queries';
+import { addMetricDataEntry } from '../MetricsSelector/metricsSlice';
 
 const useStyles = makeStyles({
   cardContainer: {
@@ -20,13 +23,42 @@ const useStyles = makeStyles({
   },
 });
 
-export default function DataCards() {
-  const { data } = useAppSelector((state) => state.metrics);
+// TODO: keep it dry
+type Measurements = {
+  metric: string;
+  value: number;
+  at: number;
+};
+
+type DataCardsProps = {
+  metrics: any[]; // TODO: fix this
+};
+
+export default function DataCards(props: DataCardsProps) {
+  const { metrics } = props;
+  const dispatch = useAppDispatch();
+
+  useSubscription<{ newMeasurement: Measurements }>(SUBSCRIPTION_NEW_MEASUREMENTS, {
+    onSubscriptionData: ({ subscriptionData: { data } }) => {
+      console.log({ data, nmm: data?.newMeasurement?.metric });
+      if (data && metrics.some(m => m.metricName === data.newMeasurement.metric)) {
+        const { newMeasurement } = data;
+        console.log({ data, newMeasurement });
+        dispatch(addMetricDataEntry({
+          metric: newMeasurement.metric,
+          value: {
+            value: newMeasurement.value,
+            at: newMeasurement.at,
+          },
+        }));
+      }
+    },
+  });
 
   const classes = useStyles();
   return (
     <Grid className={classes.cardContainer} container spacing={1}>
-      {data.map(metricData => (
+      {metrics.map(metricData => (
         <Grid key={metricData.metricName} item xs={12}>
           <Card className={classes.card}>
             <CardContent>
