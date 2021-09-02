@@ -3,24 +3,19 @@ import {
   LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer,
 } from 'recharts';
 import { useAppSelector } from '../../redux/hooks';
-// import { MetricData } from '../../Types/MetricsSelector';
 
 export default function Datachart() {
   const { data } = useAppSelector(s => s.metrics);
 
-  // const units = data.map((m: MetricData) => ({
-  //   unit: m.unit,
-  //   metric: m.metricName,
-  // }));
+  if (!data.length) {
+    return (<></>);
+  }
 
-  const chartData = data[0]; //! For testing
-
-  return chartData ? (
+  return (
     <ResponsiveContainer width="100%" height="100%">
       <LineChart
         width={500}
         height={300}
-        data={chartData?.values.map(v => ({ at: v.at, [chartData.metricName]: v.value }))}
         margin={{
           top: 5,
           right: 30,
@@ -30,11 +25,15 @@ export default function Datachart() {
       >
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis dataKey="at" />
-        <YAxis />
+        {data.map(m => (
+          <YAxis label={m.unit} />
+        ))}
         <Tooltip />
         <Legend />
-        <Line type="monotone" dataKey={chartData.metricName} stroke="#8884d8" activeDot={{ r: 8 }} />
+        {data.map((m) => (
+          <Line dataKey="value" data={m.values} name={m.metricName} key={m.metricName} />
+        ))}
       </LineChart>
     </ResponsiveContainer>
-  ) : null;
+  );
 }
