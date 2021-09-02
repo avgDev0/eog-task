@@ -11,7 +11,7 @@ import {
   Typography,
 } from '@material-ui/core';
 import { useAppSelector, useAppDispatch } from '../redux/hooks';
-import { setSelected } from '../Features/MetricsSelector/metricsSlice';
+import { addSelected, removeSelected, clearAll } from '../Features/MetricsSelector/metricsSlice';
 
 type CheckboxListProps = {
   options: string[];
@@ -45,12 +45,8 @@ export default function CheckboxList(props: CheckboxListProps) {
   const { selected } = useAppSelector(state => state.metrics);
   const dispatch = useAppDispatch();
 
-  const handleToggle = (option: string) => () => dispatch(
-    setSelected(
-      selected.includes(option)
-        ? selected.filter(s => s !== option)
-        : [...selected, option],
-    ),
+  const handleToggle = (option: string) => dispatch(
+    selected.includes(option) ? removeSelected(option) : addSelected(option),
   );
 
   return (
@@ -63,7 +59,7 @@ export default function CheckboxList(props: CheckboxListProps) {
         </Grid>
         {(selected.length > 1) && (
           <Grid item xs={4} md={6}>
-            <Button className={classes.clear} variant='outlined' color='primary' onClick={() => dispatch(setSelected([]))}>
+            <Button className={classes.clear} variant='outlined' color='primary' onClick={() => dispatch(clearAll())}>
               Clear selection
             </Button>
           </Grid>
@@ -79,7 +75,7 @@ export default function CheckboxList(props: CheckboxListProps) {
                 className={classes.listItem}
                 key={value}
                 button
-                onClick={handleToggle(value)}
+                onClick={() => handleToggle(value)}
               >
                 <ListItemIcon>
                   <Checkbox
