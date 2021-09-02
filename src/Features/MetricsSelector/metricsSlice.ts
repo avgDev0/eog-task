@@ -18,12 +18,10 @@ type NewEntry = {
 };
 
 interface MetricsState {
-  selected: string[];
   data: MetricData[];
 }
 
 const initialState: MetricsState = {
-  selected: [],
   data: [],
 };
 
@@ -44,6 +42,9 @@ export const metricsSlice = createSlice({
         },
       }),
     },
+    removeMetricData: (state, action: PayloadAction<string>) => {
+      state.data = state.data.filter((m) => m.metricName !== action.payload);
+    },
     addMetricDataEntry: (state, action: PayloadAction<NewEntry>) => {
       state.data.map((metricData) => {
         const { metric: metricToUpdate, value: metricEntry } = action.payload;
@@ -60,15 +61,7 @@ export const metricsSlice = createSlice({
         };
       });
     },
-    addSelected: (state, action: PayloadAction<string>) => {
-      state.selected = [...state.selected, action.payload];
-    },
-    removeSelected: (state, action: PayloadAction<string>) => {
-      state.selected = state.selected.filter((s) => s !== action.payload);
-      state.data = state.data.filter(({ metricName }) => metricName !== action.payload);
-    },
     clearAll: (state) => {
-      state.selected = [];
       state.data = [];
     },
   },
@@ -76,7 +69,7 @@ export const metricsSlice = createSlice({
 
 // TODO: fix this...
 /* eslint-disable */
-export const { setMetricData, addMetricDataEntry, addSelected, removeSelected, clearAll } = metricsSlice.actions;
+export const { setMetricData, removeMetricData, addMetricDataEntry, clearAll } = metricsSlice.actions;
 /* eslint-enable */
 
 export default metricsSlice.reducer;

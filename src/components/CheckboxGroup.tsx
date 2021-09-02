@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 export default function CheckboxList(props: CheckboxListProps) {
   const classes = useStyles();
   const { options } = props;
-  const { selected } = useAppSelector(state => state.metrics);
+  const { data } = useAppSelector(state => state.metrics);
   const dispatch = useAppDispatch();
 
   return (
@@ -46,7 +46,7 @@ export default function CheckboxList(props: CheckboxListProps) {
             Select metrics
           </Typography>
         </Grid>
-        {(selected.length > 1) && (
+        {(data.length > 1) && (
           <Grid item xs={4} md={6}>
             <Button className={classes.clear} variant='outlined' color='primary' onClick={() => dispatch(clearAll())}>
               Clear selection
@@ -56,9 +56,13 @@ export default function CheckboxList(props: CheckboxListProps) {
       </Grid>
       <Grid item xs={12}>
         <List disablePadding>
-          {options.map(
-            (value) => (<CheckboxItem value={value} checked={selected.includes(value)} />),
-          )}
+          {options.map((value) => (
+            <CheckboxItem
+              key={value}
+              value={value}
+              checked={data.some(m => m.metricName === value)}
+            />
+          ))}
         </List>
       </Grid>
     </Grid>
