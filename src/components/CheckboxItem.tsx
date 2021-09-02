@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import {
   ListItem,
   ListItemIcon,
@@ -10,7 +10,7 @@ import { useLazyQuery } from '@apollo/client';
 import { makeStyles } from '@material-ui/core/styles';
 import { useAppDispatch } from '../redux/hooks';
 import { setMetricData, removeMetricData } from '../Features/MetricsSelector/metricsSlice';
-import { QUERY_GET_MEASUREMENTS, SUBSCRIPTION_NEW_MEASUREMENT } from '../Features/MetricsSelector/queries';
+import { QUERY_GET_MEASUREMENTS } from '../Features/MetricsSelector/queries';
 
 interface WithDataProps {
   value: string;
@@ -18,7 +18,6 @@ interface WithDataProps {
 }
 
 interface CheckboxItemProps extends WithDataProps {
-  subscribeToNewMeasurements: null | (() => () => void);
   onSelect: Function;
 }
 
@@ -39,20 +38,10 @@ const metricTimestamp = moment().subtract(0.5, 'hour').valueOf();
 
 function CheckboxItem(props: CheckboxItemProps) {
   const {
-    checked, value, subscribeToNewMeasurements, onSelect,
+    checked, value, onSelect,
   } = props;
   const classes = useStyles();
   const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    if (typeof subscribeToNewMeasurements === 'function') {
-      subscribeToNewMeasurements();
-
-      return () => subscribeToNewMeasurements();
-    }
-
-    return () => { };
-  });
 
   const handleToggle = (option: string) => {
     if (checked) {
@@ -93,9 +82,6 @@ export default function withData(props: WithDataProps) {
 
   const [
     getMeasurements,
-    {
-      subscribeToMore,
-    },
   ] = useLazyQuery<{ getMeasurements: Measurements[] }>(
     QUERY_GET_MEASUREMENTS,
     {
@@ -117,18 +103,8 @@ export default function withData(props: WithDataProps) {
     },
   );
 
-  const susbscribeToNewMeasurements = !subscribeToMore ? null : () => subscribeToMore({
-    document: SUBSCRIPTION_NEW_MEASUREMENT,
-    updateQuery: (prev, { subscriptionData }) => {
-      console.log({ prev, subscriptionData });
-
-      return prev;
-    },
-  });
-
   return (
     <CheckboxItem
-      subscribeToNewMeasurements={susbscribeToNewMeasurements}
       value={value}
       checked={checked}
       onSelect={getMeasurements}
