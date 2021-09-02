@@ -40,10 +40,8 @@ export default function DataCards(props: DataCardsProps) {
 
   useSubscription<{ newMeasurement: Measurements }>(SUBSCRIPTION_NEW_MEASUREMENTS, {
     onSubscriptionData: ({ subscriptionData: { data } }) => {
-      console.log({ data, nmm: data?.newMeasurement?.metric });
       if (data && metrics.some(m => m.metricName === data.newMeasurement.metric)) {
         const { newMeasurement } = data;
-        console.log({ data, newMeasurement });
         dispatch(addMetricDataEntry({
           metric: newMeasurement.metric,
           value: {
