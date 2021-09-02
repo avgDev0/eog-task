@@ -2,16 +2,13 @@ import React from 'react';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import {
   List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-  Checkbox,
   Button,
   Grid,
   Typography,
 } from '@material-ui/core';
-import { useAppSelector, useAppDispatch } from '../redux/hooks';
-import { addSelected, removeSelected, clearAll } from '../Features/MetricsSelector/metricsSlice';
+import { useAppDispatch, useAppSelector } from '../redux/hooks';
+import { clearAll } from '../Features/MetricsSelector/metricsSlice';
+import CheckboxItem from './CheckboxItem';
 
 type CheckboxListProps = {
   options: string[];
@@ -33,10 +30,6 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     paddingTop: 0,
     paddingBottom: 0,
   },
-  listItem: {
-    paddingTop: 0,
-    paddingBottom: 0,
-  },
 }));
 
 export default function CheckboxList(props: CheckboxListProps) {
@@ -44,10 +37,6 @@ export default function CheckboxList(props: CheckboxListProps) {
   const { options } = props;
   const { selected } = useAppSelector(state => state.metrics);
   const dispatch = useAppDispatch();
-
-  const handleToggle = (option: string) => dispatch(
-    selected.includes(option) ? removeSelected(option) : addSelected(option),
-  );
 
   return (
     <Grid className={classes.metricsMenu} container>
@@ -67,29 +56,9 @@ export default function CheckboxList(props: CheckboxListProps) {
       </Grid>
       <Grid item xs={12}>
         <List disablePadding>
-          {options.map((value) => {
-            const labelId = `checkbox-list-label-${value}`;
-
-            return (
-              <ListItem
-                className={classes.listItem}
-                key={value}
-                button
-                onClick={() => handleToggle(value)}
-              >
-                <ListItemIcon>
-                  <Checkbox
-                    edge="start"
-                    checked={selected.indexOf(value) !== -1}
-                    tabIndex={-1}
-                    disableRipple
-                    inputProps={{ 'aria-labelledby': labelId }}
-                  />
-                </ListItemIcon>
-                <ListItemText id={labelId} primary={value} />
-              </ListItem>
-            );
-          })}
+          {options.map(
+            (value) => (<CheckboxItem value={value} checked={selected.includes(value)} />),
+          )}
         </List>
       </Grid>
     </Grid>
