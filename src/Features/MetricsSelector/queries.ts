@@ -16,13 +16,12 @@ export const QUERY_GET_MEASUREMENTS = gql`
   }
 `;
 
-export const SUBSCRIPTION_NEW_MEASUREMENT = gql`
+export const SUBSCRIPTION_NEW_MEASUREMENTS = gql`
   subscription OnNewMeasurement {
     newMeasurement {
       metric
       value
       at
-      unit
     }
   }
 `;

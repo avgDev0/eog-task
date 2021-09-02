@@ -46,20 +46,16 @@ export const metricsSlice = createSlice({
       state.data = state.data.filter((m) => m.metricName !== action.payload);
     },
     addMetricDataEntry: (state, action: PayloadAction<NewEntry>) => {
-      state.data.map((metricData) => {
-        const { metric: metricToUpdate, value: metricEntry } = action.payload;
+      const { metric: metricToUpdate, value: metricEntry } = action.payload;
+      const entryIndex = state.data.findIndex((m) => m.metricName === metricToUpdate);
 
-        if (metricData.metricName !== metricToUpdate) {
-          return metricData;
-        }
+      if (entryIndex > -1) {
+        const dataEntry = state.data[entryIndex];
+        dataEntry.values = [...dataEntry.values, metricEntry];
+        dataEntry.latestEntry = metricEntry;
 
-        const { values } = metricData;
-        return {
-          ...metricData,
-          values: values.push(metricEntry),
-          latestEntry: metricEntry,
-        };
-      });
+        state.data[entryIndex] = dataEntry;
+      }
     },
     clearAll: (state) => {
       state.data = [];
