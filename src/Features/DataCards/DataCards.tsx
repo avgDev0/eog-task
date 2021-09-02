@@ -1,8 +1,12 @@
 import React from 'react';
-import { Grid } from '@material-ui/core';
+import {
+  Grid,
+  Card,
+  CardContent,
+  Typography,
+} from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { useAppSelector } from '../../redux/hooks';
-import DataCard from '../../components/DataCard';
 
 const useStyles = makeStyles({
   cardContainer: {
@@ -17,12 +21,25 @@ const useStyles = makeStyles({
 });
 
 export default function DataCards() {
-  const { selected } = useAppSelector((state) => state.metrics);
+  const { data } = useAppSelector((state) => state.metrics);
 
   const classes = useStyles();
   return (
     <Grid className={classes.cardContainer} container spacing={1}>
-      {selected.map((metric) => <DataCard metric={metric} key={metric} />)}
+      {data.map(metricData => (
+        <Grid key={metricData.metricName} item xs={12}>
+          <Card className={classes.card}>
+            <CardContent>
+              <Typography color="textPrimary" variant="h6" gutterBottom>
+                {metricData.metricName}
+              </Typography>
+              <Typography color="textPrimary" variant="h4" gutterBottom>
+                {metricData.latestEntry.value} {metricData.unit}
+              </Typography>
+            </CardContent>
+          </Card>
+        </Grid>
+      ))}
     </Grid>
   );
 }

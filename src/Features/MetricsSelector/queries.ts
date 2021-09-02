@@ -5,3 +5,24 @@ export const QUERY_GET_METRICS = gql`
     getMetrics
   }
 `;
+
+export const QUERY_GET_MEASUREMENTS = gql`
+  query GetMeasurements($metric: MeasurementQuery) {
+    getMeasurements(input: $metric) {
+      value
+      unit
+      at
+    }
+  }
+`;
+
+export const SUBSCRIPTION_NEW_MEASUREMENT = gql`
+  subscription OnNewMeasurement {
+    newMeasurement {
+      metric
+      value
+      at
+      unit
+    }
+  }
+`;
