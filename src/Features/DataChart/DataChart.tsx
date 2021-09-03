@@ -2,13 +2,14 @@ import React from 'react';
 import {
   LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer,
 } from 'recharts';
+import moment from 'moment';
 import { useAppSelector } from '../../redux/hooks';
 
-export default function Datachart() {
+export default function DataChart() {
   const { data } = useAppSelector(s => s.metrics);
 
   if (!data.length) {
-    return (<></>);
+    return null;
   }
 
   return (
@@ -24,14 +25,14 @@ export default function Datachart() {
         }}
       >
         <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="at" />
+        <XAxis dataKey="at" tickFormatter={(value: number) => moment(value).format('HH:mm')} minTickGap={20} />
         {data.map(m => (
-          <YAxis label={m.unit} />
+          <YAxis yAxisId={`label-${m.metricName}`} label={{ value: m.unit, angle: -90, position: 'insideBottom' }} />
         ))}
         <Tooltip />
         <Legend />
         {data.map((m) => (
-          <Line dataKey="value" data={m.values} name={m.metricName} key={m.metricName} />
+          <Line dataKey="value" yAxisId={`label-${m.metricName}`} data={m.values} name={m.metricName} key={m.metricName} />
         ))}
       </LineChart>
     </ResponsiveContainer>
