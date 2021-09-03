@@ -19,7 +19,9 @@ export default function MetricsSection() {
   return (
     <Grid container className={classes.sectionContainer}>
       <Grid item xs={8}>
-        {metricsData.length && <DataCards metrics={metricsData} />}
+        {metricsData.length ? (
+          <DataCards metrics={metricsData} />
+        ) : null}
       </Grid>
       <Grid item xs={4}>
         <MetricsSelector />
