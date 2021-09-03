@@ -4,6 +4,7 @@ import {
 } from 'recharts';
 import moment from 'moment';
 import { useAppSelector } from '../../redux/hooks';
+import CustomTooltip from '../../components/ChartTooltip';
 
 export default function DataChart() {
   const { data } = useAppSelector(s => s.metrics);
@@ -11,6 +12,13 @@ export default function DataChart() {
   if (!data.length) {
     return null;
   }
+
+  /**
+   * TODO:
+   *  try to fix domain
+   *  tooltips
+   *  random color lines, seems like we need to store that on redux
+   */
 
   return (
     <ResponsiveContainer width="100%" height="100%">
@@ -25,14 +33,28 @@ export default function DataChart() {
         }}
       >
         <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="at" tickFormatter={(value: number) => moment(value).format('HH:mm')} minTickGap={20} />
+        <XAxis
+          dataKey="at"
+          tickFormatter={(value: number) => moment(value).format('HH:mm')}
+          minTickGap={20}
+          type="number"
+          // TODO: domain not working
+          domain={[moment().subtract(0.5, 'hour').valueOf(), moment().valueOf()]}
+        />
         {data.map(m => (
           <YAxis yAxisId={`label-${m.metricName}`} label={{ value: m.unit, angle: -90, position: 'insideBottom' }} />
         ))}
-        <Tooltip />
+        <Tooltip content={<CustomTooltip />} />
         <Legend />
         {data.map((m) => (
-          <Line dataKey="value" yAxisId={`label-${m.metricName}`} data={m.values} name={m.metricName} key={m.metricName} />
+          <Line
+            type="monotone"
+            dataKey="value"
+            yAxisId={`label-${m.metricName}`}
+            data={m.values}
+            name={m.metricName}
+            key={m.metricName}
+          />
         ))}
       </LineChart>
     </ResponsiveContainer>
