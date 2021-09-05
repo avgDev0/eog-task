@@ -4,7 +4,6 @@ import {
 } from 'recharts';
 import moment from 'moment';
 import { useAppSelector } from '../../redux/hooks';
-import CustomTooltip from '../../components/ChartTooltip';
 
 export default function DataChart() {
   const { data } = useAppSelector(s => s.metrics);
@@ -16,7 +15,6 @@ export default function DataChart() {
   /**
    * TODO:
    *  try to fix domain
-   *  tooltips
    *  random color lines, seems like we need to store that on redux
    */
 
@@ -38,13 +36,12 @@ export default function DataChart() {
           tickFormatter={(value: number) => moment(value).format('HH:mm')}
           minTickGap={20}
           type="number"
-          // TODO: domain not working
           domain={[moment().subtract(0.5, 'hour').valueOf(), moment().valueOf()]}
         />
         {data.map(m => (
           <YAxis yAxisId={`label-${m.metricName}`} label={{ value: m.unit, angle: -90, position: 'insideBottom' }} />
         ))}
-        <Tooltip content={<CustomTooltip />} />
+        <Tooltip labelFormatter={(label: number) => moment(label).format('MMM Do, h:mm:ss A')} />
         <Legend />
         {data.map((m) => (
           <Line

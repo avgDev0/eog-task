@@ -77,6 +77,7 @@ export default function withData(props: IWithDataProps) {
           after: metricTimestamp,
         },
       },
+      fetchPolicy: 'cache-and-network',
       onCompleted: ({ getMeasurements: measurements }) => {
         const [{ unit }] = measurements;
         const values = measurements.map(m => ({
