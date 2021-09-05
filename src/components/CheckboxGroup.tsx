@@ -9,7 +9,6 @@ import {
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import { clearAll } from '../Features/MetricsSelector/metricsSlice';
 import CheckboxItem from './CheckboxItem';
-import type { CheckboxListProps } from '../Types/CheckboxGroup';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   metricsMenu: {
@@ -28,6 +27,10 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     paddingBottom: 0,
   },
 }));
+
+type CheckboxListProps = {
+  options: string[];
+};
 
 export default function CheckboxList(props: CheckboxListProps) {
   const classes = useStyles();

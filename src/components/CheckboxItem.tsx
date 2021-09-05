@@ -11,7 +11,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import { useAppDispatch } from '../redux/hooks';
 import { setMetricData, removeMetricData } from '../Features/MetricsSelector/metricsSlice';
 import { QUERY_GET_MEASUREMENTS } from '../Features/MetricsSelector/queries';
-import type { IWithDataProps, CheckboxItemProps } from '../Types/CheckboxItem';
 import type { Measurement } from '../Types/Measurements';
 
 const useStyles = makeStyles({
@@ -20,6 +19,15 @@ const useStyles = makeStyles({
     paddingBottom: 0,
   },
 });
+
+interface IWithDataProps {
+  value: string;
+  checked: boolean;
+}
+
+interface CheckboxItemProps extends IWithDataProps {
+  onSelect: Function;
+}
 
 const metricTimestamp = moment().subtract(0.5, 'hour').valueOf();
 
