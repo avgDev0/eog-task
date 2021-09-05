@@ -13,12 +13,13 @@ export default function DataChart() {
     return null;
   }
 
-  const units: string[] = [];
-  data.forEach((metric: MetricData) => {
-    if (!units.includes(metric.unit)) {
-      units.push(metric.unit);
+  const units: string[] = data.reduce<string[]>((acc, item: MetricData) => {
+    if (!acc.includes(item.unit)) {
+      acc.push(item.unit);
     }
-  });
+
+    return acc;
+  }, []);
 
   return (
     <ResponsiveContainer width="100%" height="100%">
