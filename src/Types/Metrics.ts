@@ -15,7 +15,7 @@ type MetricData = {
   color: string;
 };
 
-type NewEntry = {
+type NewMetricEntry = {
   metric: string;
   value: MetricValue;
 };
@@ -24,5 +24,6 @@ type MetricsState = {
   data: MetricData[];
 };
 
-// eslint-disable-next-line object-curly-newline
-export type { MetricsDataResponse, MetricData, MetricValue, NewEntry, MetricsState };
+export type {
+  MetricsDataResponse, MetricData, MetricValue, NewMetricEntry, MetricsState,
+};

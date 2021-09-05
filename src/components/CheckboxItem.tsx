@@ -11,7 +11,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import { useAppDispatch } from '../redux/hooks';
 import { setMetricData, removeMetricData } from '../Features/MetricsSelector/metricsSlice';
 import { QUERY_GET_MEASUREMENTS } from '../Features/MetricsSelector/queries';
-import { IWithDataProps, CheckboxItemProps, Measurements } from '../Types/CheckboxItem';
+import type { IWithDataProps, CheckboxItemProps } from '../Types/CheckboxItem';
+import type { Measurement } from '../Types/Measurements';
 
 const useStyles = makeStyles({
   listItem: {
@@ -68,7 +69,7 @@ export default function withData(props: IWithDataProps) {
 
   const [
     getMeasurements,
-  ] = useLazyQuery<{ getMeasurements: Measurements[] }>(
+  ] = useLazyQuery<{ getMeasurements: Measurement[] }>(
     QUERY_GET_MEASUREMENTS,
     {
       variables: {

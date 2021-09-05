@@ -3,7 +3,7 @@ import {
   LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer,
 } from 'recharts';
 import moment from 'moment';
-import { MetricData } from '../../Types/MetricsSelector';
+import type { MetricData } from '../../Types/Metrics';
 import { useAppSelector } from '../../redux/hooks';
 
 export default function DataChart() {

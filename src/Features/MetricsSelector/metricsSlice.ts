@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-// eslint-disable-next-line object-curly-newline
-import { MetricValue, MetricData, NewEntry, MetricsState } from '../../Types/MetricsSelector';
+import type {
+  MetricValue, MetricData, NewMetricEntry, MetricsState,
+} from '../../Types/Metrics';
 
 const initialState: MetricsState = {
   data: [],
@@ -27,7 +28,7 @@ export const metricsSlice = createSlice({
     removeMetricData: (state, action: PayloadAction<string>) => {
       state.data = state.data.filter((m) => m.metricName !== action.payload);
     },
-    addMetricDataEntry: (state, action: PayloadAction<NewEntry>) => {
+    addMetricDataEntry: (state, action: PayloadAction<NewMetricEntry>) => {
       const { metric: metricToUpdate, value: metricEntry } = action.payload;
       const entryIndex = state.data.findIndex((m) => m.metricName === metricToUpdate);
 
@@ -45,9 +46,8 @@ export const metricsSlice = createSlice({
   },
 });
 
-// TODO: fix this...
-/* eslint-disable */
-export const { setMetricData, removeMetricData, addMetricDataEntry, clearAll } = metricsSlice.actions;
-/* eslint-enable */
+export const {
+  setMetricData, removeMetricData, addMetricDataEntry, clearAll,
+} = metricsSlice.actions;
 
 export default metricsSlice.reducer;

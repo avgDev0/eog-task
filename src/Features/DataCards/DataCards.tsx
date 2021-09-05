@@ -10,6 +10,8 @@ import { useSubscription } from '@apollo/client';
 import { useAppDispatch } from '../../redux/hooks';
 import { SUBSCRIPTION_NEW_MEASUREMENTS } from '../MetricsSelector/queries';
 import { addMetricDataEntry } from '../MetricsSelector/metricsSlice';
+import type{ Measurement } from '../../Types/Measurements';
+import type { MetricData } from '../../Types/Metrics';
 
 const useStyles = makeStyles({
   cardContainer: {
@@ -23,22 +25,15 @@ const useStyles = makeStyles({
   },
 });
 
-// TODO: keep it dry
-type Measurements = {
-  metric: string;
-  value: number;
-  at: number;
-};
-
 type DataCardsProps = {
-  metrics: any[]; // TODO: fix this
+  metrics: MetricData[];
 };
 
 export default function DataCards(props: DataCardsProps) {
   const { metrics } = props;
   const dispatch = useAppDispatch();
 
-  useSubscription<{ newMeasurement: Measurements }>(SUBSCRIPTION_NEW_MEASUREMENTS, {
+  useSubscription<{ newMeasurement: Measurement }>(SUBSCRIPTION_NEW_MEASUREMENTS, {
     onSubscriptionData: ({ subscriptionData: { data } }) => {
       if (data && metrics.some(m => m.metricName === data.newMeasurement.metric)) {
         const { newMeasurement } = data;
