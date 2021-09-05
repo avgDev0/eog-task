@@ -3,6 +3,7 @@ import {
   LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer,
 } from 'recharts';
 import moment from 'moment';
+import { MetricData } from '../../Types/MetricsSelector';
 import { useAppSelector } from '../../redux/hooks';
 
 export default function DataChart() {
@@ -12,22 +13,21 @@ export default function DataChart() {
     return null;
   }
 
-  /**
-   * TODO:
-   *  try to fix domain
-   *  random color lines, seems like we need to store that on redux
-   */
+  const units: string[] = [];
+  data.forEach((metric: MetricData) => {
+    if (!units.includes(metric.unit)) {
+      units.push(metric.unit);
+    }
+  });
 
   return (
     <ResponsiveContainer width="100%" height="100%">
       <LineChart
-        width={500}
-        height={300}
         margin={{
-          top: 5,
-          right: 30,
-          left: 20,
-          bottom: 5,
+          top: 30,
+          right: 10,
+          left: 10,
+          bottom: 30,
         }}
       >
         <CartesianGrid strokeDasharray="3 3" />
@@ -38,19 +38,20 @@ export default function DataChart() {
           type="number"
           domain={[moment().subtract(0.5, 'hour').valueOf(), moment().valueOf()]}
         />
-        {data.map(m => (
-          <YAxis yAxisId={`label-${m.metricName}`} label={{ value: m.unit, angle: -90, position: 'insideBottom' }} />
+        {units.map((unit: string) => (
+          <YAxis key={unit} yAxisId={`label-${unit}`} label={{ value: unit, angle: -90, position: 'insideBottom' }} />
         ))}
         <Tooltip labelFormatter={(label: number) => moment(label).format('MMM Do, h:mm:ss A')} />
-        <Legend />
-        {data.map((m) => (
+        <Legend verticalAlign="top" />
+        {data.map((metricInfo: MetricData) => (
           <Line
             type="monotone"
             dataKey="value"
-            yAxisId={`label-${m.metricName}`}
-            data={m.values}
-            name={m.metricName}
-            key={m.metricName}
+            yAxisId={`label-${metricInfo.unit}`}
+            data={metricInfo.values}
+            name={metricInfo.metricName}
+            key={metricInfo.metricName}
+            stroke={metricInfo.color}
           />
         ))}
       </LineChart>

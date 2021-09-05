@@ -20,6 +20,7 @@ export const metricsSlice = createSlice({
           values,
           unit,
           latestEntry: values[values.length - 1],
+          color: `#${Math.floor(Math.random() * 16777215).toString(16)}`,
         },
       }),
     },

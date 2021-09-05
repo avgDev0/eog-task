@@ -12,6 +12,7 @@ type MetricData = {
   values: MetricValue[];
   unit: string;
   latestEntry: MetricValue;
+  color: string;
 };
 
 type NewEntry = {
