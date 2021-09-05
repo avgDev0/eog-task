@@ -25,10 +25,10 @@ export default function DataChart() {
     <ResponsiveContainer width="100%" height="100%">
       <LineChart
         margin={{
-          top: 30,
           right: 10,
           left: 10,
-          bottom: 30,
+          bottom: 20,
+          top: 10,
         }}
       >
         <CartesianGrid strokeDasharray="3 3" />
@@ -43,7 +43,7 @@ export default function DataChart() {
           <YAxis key={unit} yAxisId={`label-${unit}`} label={{ value: unit, angle: -90, position: 'insideBottom' }} />
         ))}
         <Tooltip labelFormatter={(label: number) => moment(label).format('MMM Do, h:mm:ss A')} />
-        <Legend verticalAlign="top" />
+        <Legend />
         {data.map((metricInfo: MetricData) => (
           <Line
             type="monotone"
