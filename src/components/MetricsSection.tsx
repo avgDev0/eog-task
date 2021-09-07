@@ -17,15 +17,15 @@ export default function MetricsSection() {
   const { data: metricsData } = useAppSelector((state) => state.metrics);
 
   return (
-    <Grid container className={classes.sectionContainer}>
+    <Grid direction="row-reverse" container className={classes.sectionContainer}>
+      <Grid item xs={12} md={4} lg={3}>
+        <MetricsSelector />
+      </Grid>
       {metricsData.length ? (
-        <Grid item xs={12} md={8}>
+        <Grid item xs={12} md={8} lg={9}>
           <DataCards metrics={metricsData} />
         </Grid>
       ) : null}
-      <Grid item xs={12} md={4}>
-        <MetricsSelector />
-      </Grid>
     </Grid>
   );
 }
