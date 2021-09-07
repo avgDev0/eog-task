@@ -18,12 +18,12 @@ export default function MetricsSection() {
 
   return (
     <Grid container className={classes.sectionContainer}>
-      <Grid item xs={8}>
-        {metricsData.length ? (
+      {metricsData.length ? (
+        <Grid item xs={12} md={8}>
           <DataCards metrics={metricsData} />
-        ) : null}
-      </Grid>
-      <Grid item xs={4}>
+        </Grid>
+      ) : null}
+      <Grid item xs={12} md={4}>
         <MetricsSelector />
       </Grid>
     </Grid>

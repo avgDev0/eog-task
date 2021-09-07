@@ -4,6 +4,8 @@ import {
   Card,
   CardContent,
   Typography,
+  withWidth,
+  WithWidth,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { useSubscription } from '@apollo/client';
@@ -19,17 +21,18 @@ const useStyles = makeStyles({
     display: 'grid',
     gridTemplateRows: 'repeat(2, 50%)',
     gridTemplateColumns: 'repeat(3, 33%)',
+    paddingLeft: 5,
   },
   card: {
     width: '100%',
   },
 });
 
-type DataCardsProps = {
+interface DataCardsProps extends WithWidth {
   metrics: MetricData[];
-};
+}
 
-export default function DataCards(props: DataCardsProps) {
+function DataCards(props: DataCardsProps) {
   const { metrics } = props;
   const dispatch = useAppDispatch();
 
@@ -68,3 +71,5 @@ export default function DataCards(props: DataCardsProps) {
     </Grid>
   );
 }
+
+export default withWidth()(DataCards);
