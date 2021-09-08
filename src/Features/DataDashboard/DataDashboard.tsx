@@ -6,6 +6,7 @@ import { useAppDispatch } from '../../redux/hooks';
 import { SUBSCRIPTION_NEW_MEASUREMENTS } from '../MetricsSelector/queries';
 import { addMetricDataEntry } from '../MetricsSelector/metricsSlice';
 import DataCards from '../../components/DataCards';
+import DataGrid from '../../components/DataGrid';
 import type { Measurement } from '../../Types/Measurements';
 
 interface DataDashboardProps extends WithWidth {
@@ -33,7 +34,7 @@ function DataDashboard(props: DataDashboardProps) {
     },
   });
 
-  return width !== 'xs' ? <DataCards metrics={metrics} /> : <span>mobile</span>;
+  return width !== 'xs' ? <DataCards metrics={metrics} /> : <DataGrid metrics={metrics} />;
 }
 
 export default withWidth()(DataDashboard);
