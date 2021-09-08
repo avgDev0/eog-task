@@ -2,7 +2,7 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Grid } from '@material-ui/core';
 import MetricsSelector from '../Features/MetricsSelector/MetricsSelector';
-import DataCards from '../Features/DataCards/DataCards';
+import DataDashboard from '../Features/DataDashboard/DataDashboard';
 import { useAppSelector } from '../redux/hooks';
 
 const useStyles = makeStyles({
@@ -23,7 +23,7 @@ export default function MetricsSection() {
       </Grid>
       {metricsData.length ? (
         <Grid item xs={12} md={8} lg={9}>
-          <DataCards metrics={metricsData} />
+          <DataDashboard metrics={metricsData} />
         </Grid>
       ) : null}
     </Grid>
