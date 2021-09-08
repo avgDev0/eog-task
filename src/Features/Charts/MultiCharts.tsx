@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Grid, Typography, Card, CardContent, Divider,
+  Grid, Typography, Card, CardContent,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import LineChart from '../../components/MetricsLineChart';
@@ -33,23 +33,26 @@ export default function MultiCharts(props: MultiChartsProps) {
         };
 
         return (
-          <>
-            <Divider />
-            <Card className={classes.card}>
-              <CardContent>
-                <Grid container key={metricInfo.metricName}>
-                  <Grid item xs={12}>
-                    <Typography variant="subtitle1">
-                      {metricInfo.metricName}: {metricInfo.latestEntry.value} {metricInfo.unit}
-                    </Typography>
-                  </Grid>
-                  <Grid item xs={12}>
-                    <LineChart yAxisValues={[metricInfo.unit]} syncId="multi-line-chart" lines={[line]} heigth={100} displayLegend={false} />
-                  </Grid>
+          <Card className={classes.card}>
+            <CardContent>
+              <Grid container key={metricInfo.metricName}>
+                <Grid item xs={12}>
+                  <Typography variant="subtitle1">
+                    {metricInfo.metricName}: {metricInfo.latestEntry.value} {metricInfo.unit}
+                  </Typography>
                 </Grid>
-              </CardContent>
-            </Card>
-          </>
+                <Grid item xs={12}>
+                  <LineChart
+                    yAxisValues={[metricInfo.unit]}
+                    syncId="multi-line-chart"
+                    lines={[line]}
+                    heigth={100}
+                    displayLegend={false}
+                  />
+                </Grid>
+              </Grid>
+            </CardContent>
+          </Card>
         );
       })}
     </Grid>
