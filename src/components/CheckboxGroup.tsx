@@ -47,7 +47,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   title: {
     display: 'flex',
     alignItems: 'center',
-    paddingLeft: 5,
+    paddingLeft: 10,
   },
   clear: {
     width: '100%',
