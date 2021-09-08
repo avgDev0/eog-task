@@ -44,7 +44,7 @@ export default function MultiCharts(props: MultiChartsProps) {
                     </Typography>
                   </Grid>
                   <Grid item xs={12}>
-                    <LineChart yAxisValues={[metricInfo.unit]} syncId="multi-line-chart" lines={[line]} heigth={100} />
+                    <LineChart yAxisValues={[metricInfo.unit]} syncId="multi-line-chart" lines={[line]} heigth={100} displayLegend={false} />
                   </Grid>
                 </Grid>
               </CardContent>

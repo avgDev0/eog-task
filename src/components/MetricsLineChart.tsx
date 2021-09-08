@@ -18,11 +18,12 @@ type LineChartProps = {
   lines: LineProps[];
   heigth?: number | string;
   syncId?: string;
+  displayLegend?: boolean;
 };
 
 export default function MetricsLineChart(props: LineChartProps) {
   const {
-    yAxisValues, heigth = '100%', syncId, lines,
+    yAxisValues, heigth = '100%', syncId, lines, displayLegend = true,
   } = props;
 
   return (
@@ -48,7 +49,7 @@ export default function MetricsLineChart(props: LineChartProps) {
           <YAxis key={value} yAxisId={`label-${value}`} label={{ value, angle: -90, position: 'insideBottom' }} />
         ))}
         <Tooltip labelFormatter={(label: number) => moment(label).format('MMM Do, h:mm:ss A')} />
-        <Legend />
+        {displayLegend ? <Legend /> : null}
         {lines.map(({
           yAxisValue, data, name, stroke,
         }: LineProps) => (
