@@ -15,15 +15,18 @@ export type LineProps = {
 
 type LineChartProps = {
   yAxisValues: string[];
-  syncId?: string;
   lines: LineProps[];
+  heigth?: number | string;
+  syncId?: string;
 };
 
 export default function MetricsLineChart(props: LineChartProps) {
-  const { yAxisValues, syncId, lines } = props;
+  const {
+    yAxisValues, heigth = '100%', syncId, lines,
+  } = props;
 
   return (
-    <ResponsiveContainer width="100%" height="100%">
+    <ResponsiveContainer width="100%" height={heigth}>
       <LineChart
         syncId={syncId}
         margin={{

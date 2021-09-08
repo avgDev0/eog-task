@@ -7,7 +7,7 @@ type MultiChartsProps = {
   metrics: MetricData[];
 };
 
-export default function DataSyncedCharts(props: MultiChartsProps) {
+export default function MultiCharts(props: MultiChartsProps) {
   const { metrics } = props;
 
   return (
@@ -28,7 +28,7 @@ export default function DataSyncedCharts(props: MultiChartsProps) {
               </Typography>
             </Grid>
             <Grid item xs={12}>
-              <LineChart yAxisValues={[metricInfo.unit]} syncId="multi-line-chart" lines={[line]} />
+              <LineChart yAxisValues={[metricInfo.unit]} syncId="multi-line-chart" lines={[line]} heigth={100} />
             </Grid>
           </Grid>
         );

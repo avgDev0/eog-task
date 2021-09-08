@@ -1,5 +1,5 @@
 import React from 'react';
-import { withWidth, WithWidth } from '@material-ui/core';
+import { withWidth, WithWidth, Grid } from '@material-ui/core';
 import { useSubscription } from '@apollo/client';
 import { MetricData } from '../../Types/Metrics';
 import { useAppDispatch } from '../../redux/hooks';
@@ -33,7 +33,11 @@ function DataDashboard(props: DataDashboardProps) {
     },
   });
 
-  return width !== 'xs' ? <DataCards metrics={metrics} /> : null;
+  return width === 'xs' ? null : (
+    <Grid item xs={12} md={8} lg={9}>
+      <DataCards metrics={metrics} />
+    </Grid>
+  );
 }
 
 export default withWidth()(DataDashboard);

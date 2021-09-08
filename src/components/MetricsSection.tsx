@@ -21,11 +21,7 @@ export default function MetricsSection() {
       <Grid item xs={12} md={4} lg={3}>
         <MetricsSelector />
       </Grid>
-      {metricsData.length ? (
-        <Grid item xs={12} md={8} lg={9}>
-          <DataDashboard metrics={metricsData} />
-        </Grid>
-      ) : null}
+      {metricsData.length ? <DataDashboard metrics={metricsData} /> : null}
     </Grid>
   );
 }
