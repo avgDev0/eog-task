@@ -11,6 +11,7 @@ import {
 } from '@apollo/client';
 import { getMainDefinition } from '@apollo/client/utilities';
 import CssBaseline from '@material-ui/core/CssBaseline';
+import Header from './components/Header';
 import store from './redux/store';
 import 'react-toastify/dist/ReactToastify.css';
 import Wrapper from './components/Wrapper';
@@ -65,6 +66,7 @@ const App = () => (
     <Provider store={store}>
       <ApolloProvider client={apolloClient}>
         <CssBaseline />
+        <Header />
         <Wrapper>
           <MetricsSection />
           <ChartSection />
