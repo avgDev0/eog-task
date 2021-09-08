@@ -16,7 +16,7 @@ import store from './redux/store';
 import 'react-toastify/dist/ReactToastify.css';
 import Wrapper from './components/Wrapper';
 import MetricsSection from './components/MetricsSection';
-import Chart from './Features/DataChart/DataChart';
+import ChartSection from './components/ChartSection';
 
 const theme = createTheme({
   palette: {
@@ -68,7 +68,7 @@ const App = () => (
         <CssBaseline />
         <Wrapper>
           <MetricsSection />
-          <Chart />
+          <ChartSection />
           <ToastContainer />
         </Wrapper>
       </ApolloProvider>
