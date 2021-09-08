@@ -1,11 +1,19 @@
 import React, { useState } from 'react';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import {
-  List, Button, Grid, Typography, withWidth, WithWidth, Collapse,
+  List,
+  IconButton,
+  Button,
+  Grid,
+  Typography,
+  withWidth,
+  WithWidth,
+  Collapse,
+  Card,
+  CardHeader,
+  CardContent,
 } from '@material-ui/core';
-import {
-  KeyboardArrowDownRounded as ExpandIcon, KeyboardArrowUpRounded as CollapseIcon,
-} from '@material-ui/icons';
+import { KeyboardArrowDownRounded as ExpandIcon } from '@material-ui/icons';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import { clearAll } from '../Features/MetricsSelector/metricsSlice';
 import CheckboxItem from './CheckboxItem';
@@ -20,6 +28,18 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     display: 'flex',
     justifyContent: 'space-between',
     textTransform: 'none',
+  },
+  card: {
+    width: '100%',
+  },
+  cardHeader: {
+    padding: '0 10px',
+  },
+  cardContent: {
+    padding: 0,
+    '&:last-child': {
+      padding: 0,
+    },
   },
   collapse: {
     width: '100%',
@@ -83,25 +103,27 @@ function CheckboxList(props: CheckboxListProps) {
     </>
   );
 
+  // TODO: change this container for a card https://material-ui.com/components/cards/#complex-interaction
   return (
     <Grid className={classes.metricsMenu} container>
-      {width === 'xs'
-        ? (
-          <>
-            <Button
-              className={classes.collapseButton}
-              fullWidth
-              endIcon={menuOpen ? <CollapseIcon /> : <ExpandIcon />}
-              onClick={() => setMenuOpen(!menuOpen)}
-            >
-              Select Metrics
-            </Button>
-            <Collapse className={classes.collapse} in={menuOpen}>
-              {content}
-            </Collapse>
-          </>
-        )
-        : content}
+      {width === 'xs' ? (
+        <Card className={classes.card}>
+          <CardHeader
+            className={classes.cardHeader}
+            action={(
+              <IconButton onClick={() => setMenuOpen(!menuOpen)}>
+                <ExpandIcon />
+              </IconButton>
+            )}
+            title="Select Metrics"
+          />
+          <Collapse className={classes.collapse} in={menuOpen} unmountOnExit>
+            <CardContent className={classes.cardContent}>{content}</CardContent>
+          </Collapse>
+        </Card>
+      ) : (
+        content
+      )}
     </Grid>
   );
 }

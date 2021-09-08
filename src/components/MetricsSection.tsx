@@ -7,7 +7,7 @@ import { useAppSelector } from '../redux/hooks';
 
 const useStyles = makeStyles({
   sectionContainer: {
-    height: '100%',
+    height: 'max-content',
     paddingTop: 5,
   },
 });

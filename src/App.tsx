@@ -1,5 +1,4 @@
 import React from 'react';
-import { ToastContainer } from 'react-toastify';
 import { MuiThemeProvider, createTheme } from '@material-ui/core/styles';
 import { Provider } from 'react-redux';
 import { WebSocketLink } from '@apollo/client/link/ws';
@@ -69,7 +68,6 @@ const App = () => (
         <Wrapper>
           <MetricsSection />
           <ChartSection />
-          <ToastContainer />
         </Wrapper>
       </ApolloProvider>
     </Provider>
