@@ -13,7 +13,7 @@ import {
   CardHeader,
   CardContent,
 } from '@material-ui/core';
-import { KeyboardArrowDownRounded as ExpandIcon } from '@material-ui/icons';
+import { KeyboardArrowDownRounded as ExpandIcon, KeyboardArrowUpRounded as CollapseIcon } from '@material-ui/icons';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import { clearAll } from '../Features/MetricsSelector/metricsSlice';
 import CheckboxItem from './CheckboxItem';
@@ -103,16 +103,14 @@ function CheckboxList(props: CheckboxListProps) {
     </>
   );
 
-  // TODO: change this container for a card https://material-ui.com/components/cards/#complex-interaction
   return (
     <Grid className={classes.metricsMenu} container>
       {width === 'xs' ? (
         <Card className={classes.card}>
           <CardHeader
-            className={classes.cardHeader}
             action={(
               <IconButton onClick={() => setMenuOpen(!menuOpen)}>
-                <ExpandIcon />
+                {menuOpen ? <CollapseIcon /> : <ExpandIcon />}
               </IconButton>
             )}
             title="Select Metrics"
