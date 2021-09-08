@@ -24,26 +24,28 @@ export default function MultiCharts(props: MultiChartsProps) {
 
   return (
     <Grid container>
-      {metrics.map((metricInfo: MetricData) => {
+      {metrics.map(({
+        metricName, unit, values, color, latestEntry,
+      }: MetricData) => {
         const line = {
-          yAxisValue: metricInfo.unit,
-          data: metricInfo.values,
-          name: metricInfo.metricName,
-          stroke: metricInfo.color,
+          yAxisValue: unit,
+          data: values,
+          name: metricName,
+          stroke: color,
         };
 
         return (
-          <Card className={classes.card}>
+          <Card className={classes.card} key={metricName}>
             <CardContent>
-              <Grid container key={metricInfo.metricName}>
+              <Grid container key={metricName}>
                 <Grid item xs={12}>
                   <Typography variant="subtitle1">
-                    {metricInfo.metricName}: {metricInfo.latestEntry.value} {metricInfo.unit}
+                    {metricName}: {latestEntry.value} {unit}
                   </Typography>
                 </Grid>
                 <Grid item xs={12}>
                   <LineChart
-                    yAxisValues={[metricInfo.unit]}
+                    yAxisValues={[unit]}
                     syncId="multi-line-chart"
                     lines={[line]}
                     heigth={100}
